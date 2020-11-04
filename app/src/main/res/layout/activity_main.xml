@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome"
     tools:context=".MainActivity">
 
     //Designing the front image *Not background
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/welcome" />
 
     <ImageView
         android:id="@+id/app_logo"
@@ -22,17 +28,16 @@
 
     <TextView
         android:id="@+id/app_slogan"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="88dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="160dp"
         android:text="With HyperCart"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="27sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         />
 
 
@@ -46,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/buttons"
         android:padding="20dp"
         android:text="Already have an account?
@@ -54,7 +59,7 @@ Please Login"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="italic|bold" />
+        android:textStyle="bold" />
 
     //Designing Sign up button
 
@@ -65,7 +70,7 @@ Please Login"
         android:layout_above="@+id/main_login_now_btn"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/input_design"
         android:padding="20dp"
         android:text="Join Now!"
