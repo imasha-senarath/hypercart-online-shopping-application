@@ -18,6 +18,7 @@ import com.example.hypercart.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +45,9 @@ public class SettingsActivity extends AppCompatActivity
     private Uri imageUri;
     private String myUrl = "";
     private StorageTask uploadTask;
+    private FirebaseAuth mAuth;
     private StorageReference storageProfilePrictureRef;
+    private DatabaseReference userDatabase;
     private String checker = "";
 
 
@@ -66,7 +69,10 @@ public class SettingsActivity extends AppCompatActivity
 
 
         userInfoDisplay(profileImageView, fullNameEditText, userPhoneEditText, addressEditText);
+        mAuth= FirebaseAuth.getInstance();
+        userDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        getUserdata();
 
         closeTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +113,37 @@ public class SettingsActivity extends AppCompatActivity
         });
     }
 
+    private void getUserdata()
+    {
+        userDatabase.child(Prevalent.CurrentOnlineUser.getPhone()).addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.exists())
+                {
+                    if(dataSnapshot.hasChild("name"))
+                    {
+                        fullNameEditText.setText(dataSnapshot.child("name").getValue().toString());
+                    }
+                    if(dataSnapshot.hasChild("address"))
+                    {
+                        addressEditText.setText(dataSnapshot.child("address").getValue().toString());
+                    }
+                    if(dataSnapshot.hasChild("phone"))
+                    {
+                        userPhoneEditText.setText(dataSnapshot.child("phone").getValue().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
 
 
     private void updateOnlyUserInfo()
